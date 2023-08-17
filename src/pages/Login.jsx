@@ -79,11 +79,11 @@ const Login = () => {
         }
     };
 
-    // useEffect(() => {
-    //     if (state.isLogin) {
-    //         navigate('/todolist');
-    //     }
-    // }, [state.isLogin]);
+    useEffect(() => {
+        if (state.isLogin) {
+            navigate('/todolist');
+        }
+    }, [state.isLogin]);
 
     return (
         <div className='container d-flex justify-content-center align-items-center mt-5'>
