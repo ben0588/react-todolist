@@ -1,7 +1,7 @@
 # TODO LIST
 
 這是一個待辦清單工具，旨在提供用戶紀錄待辦事項。
-- [網站頁面連結](https://ben0588.github.io/react-fragrance-dawn/#/)
+- [網站頁面連結](https://ben0588.github.io/react-todolist/)
 
 
 ## 功能
