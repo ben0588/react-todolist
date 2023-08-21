@@ -87,7 +87,7 @@ const Todolist = () => {
 
     const handleCheckedTodolist = async (id) => {
         try {
-            toast.promise(axios.patch(`/todos/${id}/toggle`), {
+            await toast.promise(axios.patch(`/todos/${id}/toggle`), {
                 pending: '資料更新中',
                 success: {
                     render({ data }) {
