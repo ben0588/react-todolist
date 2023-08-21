@@ -43,13 +43,14 @@ const Todolist = () => {
 
     const handleAddTodolist = async () => {
         try {
-            toast.promise(axios.post('/todos/', { content }), {
+            await toast.promise(axios.post('/todos/', { content }), {
                 pending: '資料更新中',
                 success: '🌟 新增代辦清單成功',
                 error: '❗ 新增代辦清單失敗',
             });
             handleFetchTodos();
             setContent('');
+            setFilterTarget('全部');
         } catch (error) {
             toast(`❗ 新增代辦清單失敗：${error?.response?.data?.message?.join(',')}`);
         }
@@ -160,7 +161,7 @@ const Todolist = () => {
             const deleteTarget = todolist.filter((item) => item.status);
             Swal.fire({
                 icon: 'question',
-                title: `確認刪除全部待辦項目?`,
+                title: `確認刪除全部已完成的待辦項目?`,
                 text: '刪除完畢後資料將無法找回，確認刪除請點擊確認',
                 showCancelButton: true,
                 confirmButtonColor: '#d63031',
@@ -200,6 +201,12 @@ const Todolist = () => {
                         className='form-control p-2'
                         value={content}
                         onChange={(e) => setContent(e.target.value.replace(' ', ''))}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                setContent(e.target.value.replace(' ', ''));
+                                handleAddTodolist();
+                            }
+                        }}
                     />
                     <button type='button' className='btn btn-light btn-sm ms-2 ' onClick={() => handleAddTodolist()}>
                         <GrAdd className='icon' />
@@ -248,7 +255,7 @@ const Todolist = () => {
                                                 <input
                                                     type='checkbox'
                                                     id={item.id}
-                                                    className='form-check-input my-0 '
+                                                    className='form-check-input items-checkbox-hover my-0 '
                                                     style={{ width: `20px`, height: `20px` }}
                                                     value={Boolean(item.status)}
                                                     checked={Boolean(item.status)}
@@ -274,7 +281,7 @@ const Todolist = () => {
                                                 ) : (
                                                     <label
                                                         htmlFor={item.id}
-                                                        className={`form-check-label w-75 fs-5 ms-3 ${
+                                                        className={`form-check-label items-hover text-break w-75 fs-5 ms-3  ${
                                                             Boolean(item.status)
                                                                 ? 'text-decoration-line-through text-muted'
                                                                 : ''
@@ -331,10 +338,12 @@ const Todolist = () => {
                 position='top-left'
                 autoClose={1500}
                 hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
+                newestOnTop={true}
+                closeOnClick={true}
                 rtl={false}
-                draggable
+                pauseOnFocusLoss={false}
+                draggable={true}
+                pauseOnHover={false}
                 theme='colored'
             />
         </div>

@@ -24,6 +24,20 @@
     }
 }
 
+.items-hover {
+    cursor: pointer;
+    &:hover {
+        color: $primary;
+    }
+}
+
+.items-checkbox-hover {
+    cursor: pointer;
+    &:hover {
+        border: 2px solid $primary;
+    }
+}
+
 .was-validated .form-control:invalid,
 .form-control.is-invalid {
     background-image: none;

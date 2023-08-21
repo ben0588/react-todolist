@@ -44,15 +44,18 @@ const Register = () => {
                             nickname,
                         });
                         Swal.hideLoading();
-                        Swal.update({
+                        Swal.fire({
                             icon: 'success',
-                            title: `註冊成功，前往登入`,
-                            showConfirmButton: true,
-                            confirmButtonColor: '#6c5ce7',
-                            confirmButtonText: '確認',
+                            title: `註冊成功`,
+                            text: '即將前往登入頁面',
+                            showConfirmButton: false,
+                            timer: 1200,
                         });
                         setIsSuccess(result?.data?.status);
                         reset();
+                        setTimeout(() => {
+                            navigate('/');
+                        }, 1200);
                     } catch (error) {
                         Swal.hideLoading();
                         Swal.update({
@@ -64,12 +67,6 @@ const Register = () => {
                     }
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    if (isSuccess) {
-                        navigate('/');
-                    }
-                }
             });
         } catch (error) {
             throw new Error(error);

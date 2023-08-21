@@ -41,19 +41,21 @@ const Login = () => {
                             password,
                         });
                         Swal.hideLoading();
-                        Swal.update({
+                        Swal.fire({
                             icon: 'success',
                             title: `登入成功`,
-                            showConfirmButton: true,
-                            confirmButtonColor: '#6c5ce7',
-                            confirmButtonText: '確認',
+                            text: '即將前往待辦事項頁面',
+                            showConfirmButton: false,
+                            timer: 1000,
                         });
                         document.cookie = `token=${result.data.token};exp=${result.data.exp}`;
                         axios.defaults.headers.common['Authorization'] = result.data.token;
                         handleUserLogin(result.data);
-                        // setIsSuccess(result?.data?.status);
                         setIsSuccess(true);
                         reset();
+                        setTimeout(() => {
+                            navigate('/todolist');
+                        }, 2000);
                     } catch (error) {
                         Swal.hideLoading();
                         Swal.update({
@@ -65,10 +67,6 @@ const Login = () => {
                     }
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate('/todolist');
-                }
             });
         } catch (error) {
             Swal.fire({
